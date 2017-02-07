@@ -1,11 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.0.0.RELEASE</version>
-	</parent>
 
 	<groupId>fr.norsys</groupId>
 	<artifactId>fake-coverage</artifactId>
@@ -13,19 +8,15 @@
 
 	<properties>
 		<spring-version>4.2.6.RELEASE</spring-version>
-
-		<mockito-version>1.10.19</mockito-version>
-		<openpojo-version>0.8.4</openpojo-version>
-		<assertj-version>2.4.1</assertj-version>
 		<junit-version>4.11</junit-version>
+		
+		<slf4j-log4j12-version>1.7.6</slf4j-log4j12-version>
 
-		<java.version>1.6</java.version>
+		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
 		<jacoco.version>0.7.7.201606060606</jacoco.version>
-
-		<servlet-api.version>3.1.0</servlet-api.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -34,45 +25,33 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
+			<version>${spring-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.2</version>
+			<version>${slf4j-log4j12-version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>1.5.0</version>
-			<scope>test</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -82,11 +61,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14</version>
 			</plugin>
 
 			<!-- plugin pour l'exécution des tests d'intégration lors de la phase 
@@ -94,6 +75,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.12</version>
 				<executions>
 					<execution>
 						<id>integration-test</id>
@@ -120,13 +102,6 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
-				<configuration>
-					<excludes>
-						<exclude>**/*Application*.*</exclude>
-						<exclude>**/*Configuration*.*</exclude>
-						<exclude>**/*Aspect.*</exclude>
-					</excludes>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>

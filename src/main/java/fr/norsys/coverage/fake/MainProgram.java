@@ -1,6 +1,6 @@
 package fr.norsys.coverage.fake;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +20,9 @@ public class MainProgram {
     }
 
     public void doTheMainThing(){
-        Random rnd = new Random();
+        ThreadLocalRandom rnd = ThreadLocalRandom.current();
 
-        for (int i = 0; i < 1000; i ++){
+        for (int i = 0; i < 1_000; i ++){
             String returnedValue = service.whatCanIdo(rnd.nextInt(100));
             LOGGER.info(returnedValue);
         }
