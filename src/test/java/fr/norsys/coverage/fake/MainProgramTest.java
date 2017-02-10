@@ -1,32 +1,24 @@
 package fr.norsys.coverage.fake;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+import org.junit.Test;
+
 public class MainProgramTest {
 
-    /**
-     * Définition du cadre de test
-     */
-    @Configuration
-    @ComponentScan("fr.norsys.coverage.fake")
-    static class ContextConfiguration {
-        // config de base : on récupére donc aussi la config présente dans les sources
-    }
-
-    @Autowired
-    private MainProgram main;
-
     @Test
-    public void should_get_100_percent_coverage_without_testing_anything(){
+    public void should_get_call_service_1000_times(){
+        ServiceInterface service = mock(ServiceInterface.class);
+        when(service.whatCanIdo(anyInt())).thenReturn("Nope");
+
+        MainProgram main = new MainProgram(service);
+
         main.doTheMainThing();
+
+        verify(service, times(1_000)).whatCanIdo(anyInt());
     }
 }
